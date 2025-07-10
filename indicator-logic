@@ -1,0 +1,50 @@
+declare upper;
+input showLabels = yes;
+input rthOnly = yes;
+
+
+# === TIME FILTER ===
+def morning = SecondsFromTime(935) >= 0 and SecondsTillTime(1100) >= 0;
+def afternoon = SecondsFromTime(1330) >= 0 and SecondsTillTime(1530) >= 0;
+def timeOK = if rthOnly then (morning or afternoon) else 1;
+
+# === PIVOT LEVELS ===
+def pp = (high[1] + low[1] + close[1]) / 3;
+def s1 = pp * 2 - high[1];
+
+# === RSI ===
+def rsi = RSI(length = 14);
+def rsiRising = rsi > rsi[1];
+def rsiLow = rsi < 40;
+
+# === BUY LOGIC ===
+def inPivotZone = close >= s1 and close <= pp;
+def baseBuySignal = inPivotZone and rsiRising and timeOK;
+
+# === CONFIDENCE FILTERS ===
+def iv = imp_volatility();
+def ivRising = iv > iv[1];
+
+def squeeze = TTM_Squeeze().SqueezeAlert;
+def recentSqueeze = squeeze[1] == 1 or squeeze[2] == 1;
+
+def bullishCandle = close > open;
+
+# === SCORING ===
+def score = (ivRising + recentSqueeze + bullishCandle + rsiLow);
+
+# === TRACK ENTRY STATE ===
+rec entryBar = if baseBuySignal then BarNumber() else entryBar[1];
+rec entryPrice = if baseBuySignal then close else entryPrice[1];
+def barsSinceEntry = BarNumber() - entryBar;
+
+# === CHART BUBBLES ===
+AddChartBubble(baseBuySignal, low, "BUY " + score + "/4",
+    if score >= 3 then Color.GREEN else if score == 2 then Color.YELLOW else Color.RED,
+    no);
+
+# === DEBUG LABELS ===
+AddLabel(showLabels and baseBuySignal, "IV Rising: " + ivRising, if ivRising then Color.GREEN else Color.RED);
+AddLabel(showLabels and baseBuySignal, "Squeeze: " + recentSqueeze, if recentSqueeze then Color.MAGENTA else Color.GRAY);
+AddLabel(showLabels and baseBuySignal, "Bullish: " + bullishCandle, if bullishCandle then Color.YELLOW else Color.DARK_GRAY);
+AddLabel(showLabels and baseBuySignal, "RSI < 40: " + rsiLow, if rsiLow then Color.CYAN else Color.LIGHT_GRAY);
