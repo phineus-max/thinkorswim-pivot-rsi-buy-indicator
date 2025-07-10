@@ -1,11 +1,11 @@
 # thinkorswim-pivot-rsi-buy-indicator
 A ThinkOrSwim (Thinkscript) indicator that identifies potential buy opportunities based on pivot levels, RSI, implied volatility, and squeeze conditions, with confidence scoring and visual labels.
 
--Created: 7/9/25
--Last Updated: 7/9/25
--All rights reserved
--Feedback, suggestions, and constructive criticism are welcome!
--Please feel free to open an Issue or submit a Pull Request if you have ideas to improve this indicator.
+-Created: 7/9/25  
+-Last Updated: 7/9/25  
+-All rights reserved  
+-Feedback, suggestions, and constructive criticism are welcome!  
+-Please feel free to open an Issue or submit a Pull Request if you have ideas to improve this indicator.  
 
 README - Pivot Zone Momentum Buy Strategy
 
