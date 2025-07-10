@@ -2,7 +2,7 @@
 A ThinkOrSwim (Thinkscript) indicator that identifies potential buy opportunities based on pivot levels, RSI, implied volatility, and squeeze conditions, with confidence scoring and visual labels.
 
 -Created: 7/9/25  
--Last Updated: 7/9/25  
+-Last Updated: 7/10/25  
 -All rights reserved  
 -Feedback, suggestions, and constructive criticism are welcome!  
 -Please feel free to open an Issue or submit a Pull Request if you have ideas to improve this indicator.  
@@ -22,6 +22,8 @@ A decent amount of the code is based on built-in ThinkOrSwim indicators and is b
 This is all to say that while this indicator may be accurate, success (and/or profit) is heavily dependent on factors that this code simply cannot account for. 
 
 (While this can be used to trade stocks and ETFs, I have mostly tested it with futures, such as /ES and /MES for example. This is because this indicator is not designed for long term holds, but rather short term buying and selling (or scalping).)
+
+NOTE: Just to clarify, if you would like this code to work, you will need to access ThinkOrSwim, go to Studies -> Create New Study and then import the code. This will not work if imported under strategy! Stay tuned for the manual front-testing data soon!
 
 
 
